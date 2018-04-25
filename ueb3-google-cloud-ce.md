@@ -1,6 +1,6 @@
-2018-04-23 Christoph Knabe
+2018-04-25 Christoph Knabe
 
-# Übung 3: Google Cloud - Compute Engine (CE)
+# Google Cloud - Compute Engine (CE)
 
 **Google Cloud Platform** ist die Marke, unter der die gesamten Cloud-Aktivitäten von Google zusammengefasst sind.
 **Compute Engine** ist das IaaS-Angebot der Google Cloud Platform.
