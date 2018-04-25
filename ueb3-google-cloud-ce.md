@@ -12,10 +12,10 @@
   Bitte folgen Sie nicht diesem Weg! Wir haben für den Kurs von Google ein Budget bekommen, sodass Sie nicht in eine Kostenfalle fallen können.
 * Klicken Sie rechts oben auf das Porträt-Icon und wählen Sie "Konto hinzufügen", wenn keines der angezeigten Google-Konten Ihnen passt. Sie kommen zu einem Dialog "Anmeldung". Erstellen Sie dort ein Konto mit Ihrer Hochschul-E-Mail-Adresse. (Sie können auch ein vorbestehendes Gmail-Konto oder ein anderes E-Mail-Konto benutzen. Der Zusammenhang zu Ihrem HRZ-Username oder Nachnamen muss aber für mich erkennbar sein, da ich nur die E-Mail-Adressen sehe.)
   Sie kommen dann zu einem Dialog "E-Mail-Adresse bestätigen" mit dem Text "Geben Sie den Bestätigungscode ein, der an IhreAdresse@provider.tld gesendet wurde. Falls Sie unsere E-Mail im Posteingang nicht finden, prüfen Sie bitte Ihren Spamordner."
-  Meiner Erfahrung kann der Erhalt des Bestätigungscodes eine Weile dauern.
+  Meiner Erfahrung nach ist der Erhalt des Bestätigungscodes etwas unzuverlässig. Wenn Sie innerhalb einer Viertelstunde keine Nachricht erhalten (auch nicht im Spamordner), wiederholen Sie den Vorgang.
 * Wählen Sie dann dieses Google-Konto für ihre Identität in der Google-Cloud-Konsole aus.
 * Teilen Sie mir Ihr Google-Konto, Ihren Beuth-Username und Ihren Klarnamen mit.
-* Ich werde für Sie ein Google-Cloud-Projekt mit Ihrem Nachnamen anlegen und Sie dazu einladen. Sie erhalten diese Einladung an die E-Mail-Adresse Ihrer für Google Cloud verwendeten Identität.
+* Ich werde für Sie ein Google-Cloud-Projekt mit Ihrem Vornamen und Nachnamen anlegen und Sie dazu einladen. Sie erhalten diese Einladung an die E-Mail-Adresse Ihrer für Google Cloud verwendeten Identität.
 * Sie müssen diese Einladung durch einen Klick auf den darin enthaltenen Link bestätigen.
 
 Hinweise zum Ablauf finden Sie unter 
