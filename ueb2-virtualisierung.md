@@ -1,4 +1,4 @@
-Christoph Knabe, 2018-04-18
+Christoph Knabe, 2018-04-25
 
 # Übung 2: Virtualisierung mit VirtualBox und Vagrant
 
@@ -25,7 +25,7 @@ Entgegen der Empfehlung auf der VirtualBox-Seite hatte ich besseren Erfolg damit
 2. Gemäß https://www.linuxmintusers.de/index.php?topic=33576.msg471132#msg471132 werden mehrere VB-Pakete benötigt. Mit `virtualbox-5.0` hatte ich kein Glück und es fehlen in den offiziellen Linux-Mint-Paketquellen die benötigten Zusatzpakete. Daher nehme ich die, wenn auch ältere, Version 4.3.36, da für sie alle Zusatzpakete vorhanden sind.
    In Synaptic die Pakete `virtualbox`, `virtualbox-dkms`,  `virtualbox-guest-dkms`, `virtualbox-guest-utils`, `virtualbox-qt` und `virtualbox-guest-additions.iso`installieren.
 3. Da wir VirtualBox nur über Vagrant und nur mittels Komamndozeile benutzen werden, sind die folgenden Schritte wahrscheinlich nicht notwendig.
-4. Für Zusatzfunktionalität wie USB wird auch das gastgeberspezifische **VirtualBox Extension Pack** benötigt. Gemäß https://wiki.ubuntuusers.de/VirtualBox/Installation/ von Seite https://www.virtualbox.org/wiki/Download_Old_Builds die historische Version 4.3.6 (all platforms) geholt und mit VirtualBox geöffnet. Dadurch wird es installiert.
+4. Für Zusatzfunktionalität wie USB wird auch das wirtsspezifische **VirtualBox Extension Pack** benötigt. Gemäß https://wiki.ubuntuusers.de/VirtualBox/Installation/ von Seite https://www.virtualbox.org/wiki/Download_Old_Builds die historische Version 4.3.6 (all platforms) geholt und mit VirtualBox geöffnet. Dadurch wird es installiert.
 5. Jetzt kann man sich eine Gastsystem-ISO-Datei downloaden, eine neue VM anlegen und von der .iso-Datei das Gastsystem installieren.
 6. Verzeichnis `$HOME/VirtualBox VMs/`*machineName*`/`*machineName*`.vbox` mit Oracle VM VirtualBox öffnen.
 7. Als SharedFolder festlegen: Name `host-knabe`, Pfad auf Host `/home/knabe`
