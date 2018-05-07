@@ -111,17 +111,18 @@ Da wir aber Oracle VirtualBox für mindestens eine Übung benötigen (und da bei
   - Sie landen in einem MINGW64-Kommandoshell (unix-ähnlich).
   - Testen Sie mit `docker run hello-world`. Es sollte die Meldung `Hello from Docker` ... erscheinen. Wenn das funktioniert, ist **docker-machine**, basierend auf VirtualBox, funktionsfähig auf Ihrem Windows-Rechner.
 
-*** Get Started Guide durcharbeiten
-
-Dies folgt dem Guide unter https://docs.docker.com/get-started/
-
-Davon Part 1 "Orientation" und Part 2 "Containers" bis ausschließlich Abschnitt "Share your image" durcharbeiten!less
-
 ### Alternative: Ohne Installation im Labor
 
 Im SWE-Labor ist Docker auf dem Server `host01` installiert. Wenn Sie es nicht schaffen, sich Docker auf Ihrem eigenen Rechner zu installieren, können Sie es auf dem Laborrechner benutzen. Dazu müssen Sie sich gemäß der Anleitung https://gitlab.beuth-hochschule.de/SWE/info auf dem Server 141.64.18.193 (host01) anmelden oder auf ihn mittels ssh zugreifen wie in [Übung 1](https://github.com/ChristophKnabe/cloud-uebung/blob/master/ueb1-git-maven-ssh.md#spring-petclinic-auf-laborserver-ausf%C3%BChren).
 
 Prüfen Sie dort bitte mittels o.g. mit Kommando: `id`, ob Sie auch in der Gruppe `docker` sind. Wenn noch nicht, bitten Sie den Laboringenieur, Herrn Shahbaz, Sie der Gruppe hinzuzufügen.
+
+### Get Started Guide durcharbeiten
+
+Dies folgt dem Guide unter https://docs.docker.com/get-started/
+
+Davon Part 1 "Orientation" und Part 2 "Containers" bis ausschließlich Abschnitt "Share your image" durcharbeiten!
+
 
 ## b) Aufgabe: Docker nutzen
 
