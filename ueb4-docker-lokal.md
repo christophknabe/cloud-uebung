@@ -105,7 +105,7 @@ Da wir aber Oracle VirtualBox für mindestens eine Übung benötigen (und da bei
   - Im Dialog **Select Components** wählen Sie **VirtualBox** und **Git for Windows** ab, falls diese schon installiert sind.
 * Überprüfen Sie Ihre Installation gemäß **Step 3**:
   - Starten Sie über die Windows-GUI das **Docker Quickstart Terminal**.
-    Es wird ein Terminalfenster geöffnet, darin das Verzeichnis **%USERPROFILE%\.docker**  erzeugt und **boot2docker.iso** geholt.
+    Es wird ein Terminalfenster geöffnet, darin das Verzeichnis **%USERPROFILE%\\.docker**  erzeugt und **boot2docker.iso** geholt.
   - Erlauben Sie dem **VirtualBox Interface** Änderungen am System.
   - Dann wird die virtuelle Maschine **default** gestartet und deren IP-Adresse angezeigt (bei mir 192.168.99.100).
   - Sie landen in einem MINGW64-Kommandoshell (unix-ähnlich).
