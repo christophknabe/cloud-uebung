@@ -1,8 +1,6 @@
 2018-05-04 Christoph Knabe
 # Docker lokal einsetzen
 
-## a) Docker-Installation und Test
-
 **Docker** ist ein Containerisierungswerkzeug, um ein oder 
 mehrere Programme in einer reproduzierbaren Umgebung ausführen zu können. Es verfolgt damit das gleiche Ziel wie Vagrant.
 
@@ -11,6 +9,8 @@ Wie Sie in dieser Übung selbst erfahren werden, erfolgt das Hochfahren eines Do
 Es gibt aber eine **Einschränkung**: Docker funktioniert nur auf **Linux**-Systemen. Dies ist in der Cloud kein Problem, da die meisten Services ohnehin auf Linux laufen. Bei Entwicklungsrechnern ist dies nicht so. Diese sind of Windows- oder MacOS-Systeme. Daher wurde später Docker auch auf diese Systeme portiert. Es startet zuerst eine virtuelle Maschine mit Linux, was vergleichsweise lange dauert. Danach können Docker-Container in dieser VM superschnell gestartet werden. Der Bediener muss sich erfreulicherweise selbst nicht um die Einrichtung dieser VM kümmern.
 
 Dokumentation: https://docs.docker.com
+
+# a) Docker-Installation und Test
 
 ### Installation auf Linux Mint 17.2 (Ubuntu 14.04 LTS)
 Dies folgt der Anleitung https://docs.docker.com/install/linux/docker-ce/ubuntu/ für die Docker Community Edition.
