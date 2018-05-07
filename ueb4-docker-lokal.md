@@ -87,6 +87,36 @@ Successfully tagged friendlyhello:latest
   Dann zu http://localhost:4000/ browsen. Man sieht die Hello-World-Botschaft, die der Webserver im Container auf Port 80 anbietet.
 * Den Container beenden mit &lt;Strg/C&gt;
 
+### Alternative: Installation von Docker auf Windows 10
+Dies folgt der Anleitung unter https://docs.docker.com/docker-for-windows/install/
+
+In dem **README FIRST** wird darauf hingewiesen, dass Docker for Windows die Virtualisierungslösung [Microsoft Hyper-V](https://de.wikipedia.org/wiki/Hyper-V) benutzt und damit Oracle VirtualBox funktionsunfähig wird.
+
+Da wir aber Oracle VirtualBox für mindestens eine Übung benötigen (und da bei Hyper-V auch das Windows als Gast läuft, was Ihren Rechner permanent verlangsamen kann), wollen wir stattdessen die alternative Lösung [Docker Toolbox](https://docs.docker.com/toolbox/overview/) nutzen, die auf VirtualBox basiert.
+
+* Gehen Sie zur Seite [Install Docker Toolbox on Windows](https://docs.docker.com/toolbox/toolbox_install_windows/)
+* Folgen Sie dem Link "Get Docker Toolbox for Windows", der das Programm DockerToolbox.exe (211 MB) holt.
+* Prüfen Sie Ihre Systemvoraussetzungen gemäß **Step 1**.
+* Installieren Sie Docker Toolbox gemäß **Step 2**:
+  - Alle Virtuellen Maschinen in VirtualBox herunterfahren.
+  - Beenden Sie das VirtualBox GUI.
+  - Führen Sie das oben geholte Programm **DockerToolbox.exe** aus.
+  - Erlauben Sie Systemveränderungen.
+  - Im Dialog **Select Components** wählen Sie **VirtualBox** und **Git for Windows** ab, falls diese schon installiert sind.
+* Überprüfen Sie Ihre Installation gemäß **Step 3**:
+  - Starten Sie über die Windows-GUI das **Docker Quickstart Terminal**.
+    Es wird ein Terminalfenster geöffnet, darin das Verzeichnis **%USERPROFILE%\.docker**  erzeugt und **boot2docker.iso** geholt.
+  - Erlauben Sie dem **VirtualBox Interface** Änderungen am System.
+  - Dann wird die virtuelle Maschine **default** gestartet und deren IP-Adresse angezeigt (bei mir 192.168.99.100).
+  - Sie landen in einem MINGW64-Kommandoshell (unix-ähnlich).
+  - Testen Sie mit `docker run hello-world`. Es sollte die Meldung `Hello from Docker` ... erscheinen. Wenn das funktioniert, ist **docker-machine**, basierend auf VirtualBox, funktionsfähig auf Ihrem Windows-Rechner.
+
+*** Get Started Guide durcharbeiten
+
+Dies folgt dem Guide unter https://docs.docker.com/get-started/
+
+Davon Part 1 "Orientation" und Part 2 "Containers" bis ausschließlich Abschnitt "Share your image" durcharbeiten!less
+
 ### Alternative: Ohne Installation im Labor
 
 Im SWE-Labor ist Docker auf dem Server `host01` installiert. Wenn Sie es nicht schaffen, sich Docker auf Ihrem eigenen Rechner zu installieren, können Sie es auf dem Laborrechner benutzen. Dazu müssen Sie sich gemäß der Anleitung https://gitlab.beuth-hochschule.de/SWE/info auf dem Server 141.64.18.193 (host01) anmelden oder auf ihn mittels ssh zugreifen wie in [Übung 1](https://github.com/ChristophKnabe/cloud-uebung/blob/master/ueb1-git-maven-ssh.md#spring-petclinic-auf-laborserver-ausf%C3%BChren).
@@ -111,19 +141,28 @@ Das Provisioning eines Docker-Images geschieht anfangs als User `root`, da man j
 
 * Auf dem Wirtssystem muss der Befehl `docker build --tag petclinic .` zur Erzeugung des Images fehlerfrei durchlaufen.
 
-* Danach muss auf dem Wirt der Befehl `docker run -p 80:8080 petclinic` die Applikation starten, sodass Sie sie durch Browsen zu http://localhost  bedienen können. Wenn das funktioniert, sehen Sie in der Konsolenausgabe *FrameworkServlet 'dispatcherServlet': initialization completed in 84 ms* und im Browser die Petclinic-Oberfläche.
+* Danach muss auf dem Wirt der Befehl `docker run -p 80:8080 petclinic` die Applikation starten, sodass Sie sie durch Browsen zu http://localhost  (bei Docker Toolbox auf Windows: http://192.168.99.100 oder welche IP-Adresse bei Ihnen für die virtuelle Maschine **default** angezeigt wurde) bedienen können. Wenn das funktioniert, sehen Sie in der Konsolenausgabe *FrameworkServlet 'dispatcherServlet': initialization completed in 84 ms* und im Browser die Petclinic-Oberfläche.
 
 * Wenn das funktioniert, modifizieren Sie den `Dockerfile`so, dass die Applikation nicht mehr unter dem User `root`, sondern einem nichtprivilegierten Username läuft. Dieses ist begründet in
   https://blog.csanchez.org/2017/01/31/running-docker-containers-as-non-root/
   und dort wird der User **nobody** (uid **65534**) in dem Verzeichnis **/tmp** vorgeschlagen, weil beide auf den meisten Linux-Systemen vordefiniert sind.
-  Abweichend von der im genannten Beitrag beschriebenen Ausgangslage können wir diese Festlegungen in den `Dockerfile` eintragen, da wir ihn selbst erstellen.
+  Abweichend von der im genannten Beitrag beschriebenen Problemlage können wir diese Festlegungen in den `Dockerfile` eintragen, da wir ihn selbst erstellen.
   Benutzen Sie folgende Instruktionen dafür
-  \# Aktuellen Benutzer auf username setzen:
-  USER username
+  \# Aktuellen Benutzer auf *username* setzen:
+  USER *username*
   \# Aktuelles Arbeitsverzeichnis festlegen:
-  WORKDIR neuesArbeitsverzeichnis
+  WORKDIR *neuesArbeitsverzeichnis*
   \# Umgebungsvariable definieren:
-  ENV NAME value
+  ENV *NAME* *value*
 
   Sie sollten auch die Umgebungsvariable JAVA_TOOL_OPTIONS auf `-Duser.home=/tmp` setzen, damit alle Java-Programme denken, das Home-Verzeichnis sei `/tmp`.
 
+#### Beenden
+
+Auf Windows wird das Terminierungssignal bei &lt;Strg/C&gt; nicht zum Linux-Gast durchgereicht, sondern unterbricht nur die ssh-Verbindung zu diesem. Der Webserver mit der Spring-Petclinic läuft also weiter.  Also:
+
+* <Strg/C> oder einen neuen Shell öffnen, um in den Bedienshell auf der Wirtsmaschine zu kommen.
+* Mittels `docker container ls` alle laufenden Container auflisten. In der ersten Spalte werden hexadezimale CONTAINER IDs und in der letzten deren Klarnamen angezeigt.
+* Sodann mit `docker stop id` den entsprechenden Container herunterfahren. Dabei reicht es aus, einen eindeutigen Anfang der ID einzugeben.
+* Erneut starten wieder mit `docker run -p 80:8080 petclinic`. Dabei werden Sie merken, dass der Start des Linux in Nullkommanichts erfolgt (die Docker-VM lief ja noch). Nur der Start der Java-Applikation dauert seine Zeit.
+* Wenn man die Arbeit beendet, sollte man auf Windows auch die von Docker benutzte virtuelle Maschine beenden. Dazu `docker-machine ls` um alle anzuzeigen und `docker-machine stop` um die einzig laufende Maschine `default` zu beenden.
