@@ -120,7 +120,7 @@ Davon Part 1 "Orientation" und Part 2 "Containers" bis ausschließlich Abschnitt
 
 ### Alternative: Ohne Installation im Labor
 
-Im SWE-Labor ist Docker auf dem Server `host01` installiert. Wenn Sie es nicht schaffen, sich Docker auf Ihrem eigenen Rechner zu installieren, können Sie es auf dem Laborrechner benutzen. Dazu müssen Sie sich gemäß der Anleitung https://gitlab.beuth-hochschule.de/SWE/info auf dem Server 141.64.18.193 (host01) anmelden oder auf ihn mittels ssh zugreifen wie in [Übung 1](https://github.com/ChristophKnabe/cloud-uebung/blob/master/ueb1-git-maven-ssh.md#spring-petclinic-auf-laborserver-ausf%C3%BChren).
+Im SWE-Labor ist Docker auf dem Server `host01` installiert. Wenn Sie es nicht schaffen, sich Docker auf Ihrem eigenen Rechner zu installieren, können Sie es auf dem Laborrechner benutzen. Dazu müssen Sie sich gemäß der Anleitung https://gitlab.beuth-hochschule.de/SWE/info auf dem Server 141.64.18.193 (host01.beuth-hochschule.de) anmelden oder auf ihn mittels ssh zugreifen wie in [Übung 1](https://github.com/ChristophKnabe/cloud-uebung/blob/master/ueb1-git-maven-ssh.md#spring-petclinic-auf-laborserver-ausf%C3%BChren).
 
 Prüfen Sie dort bitte mittels o.g. mit Kommando: `id`, ob Sie auch in der Gruppe `docker` sind. Wenn noch nicht, bitten Sie den Laboringenieur, Herrn Shahbaz, Sie der Gruppe hinzuzufügen.
 
