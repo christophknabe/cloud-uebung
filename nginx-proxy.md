@@ -23,6 +23,10 @@ Dieses installiert und startet den Webserver `nginx` und richtet ihn als Systemd
 Zur Kontrolle browsen wir zur Seite http://localhost
 Es wird eine Begrüßungsseite von **nginx** angezeigt.
 
+**Achtung**:  In der Cloud können wir nicht einfach zu http://localhost browsen, da wir keine GUI und somit keinen Browser zur Verfügung haben. Wir können aber die Funktionsfähigkeit auf der Kommandozeile testen mittels Kommando
+`wget http://localhost`
+Dies lädt die Einstiegsseite als Datei `index.html` ins aktuelle Arbeitsverzeichnis.
+
 ### Einige Dienstverwaltungsbefehle
 
 `sudo service nginx stop` hält den Dienst an.
@@ -49,7 +53,8 @@ Die Nginx-Konfigurationsdateien liegen unter `/etc/nginx/`.
 In  `/etc/nginx/sites-available/` liegen Konfig-Dateien für alle potentiell verfügbaren Websites.
 In  `/etc/nginx/sites-enabled/` liegen Konfig-Dateien für die aktuell freigeschalteten Websites. Anfänglich ist dort nur ein symbolischer Link namens `default` auf die in  `/etc/nginx/sites-available/default` konfigurierte Nginx-Begrüßungssite.
 
-Jetzt müssen wir  in `sites-available`den symbolischen Link löschen und stattdessen einen auf unsere o.g. Datei `nginx-proxy`anlegen und dies nginx mitteilen:
+Jetzt müssen wir  in `sites-enabled` den symbolischen Link löschen und stattdessen einen auf unsere o.g. Datei `nginx-proxy`anlegen und dies nginx mitteilen.
+**Achtung**: Ersetzen Sie den Pfadanteil `.../myproject` durch ihren spezifischen Pfadanteil zu Ihrem Projekt.
 
 ```
 cd /etc/nginx/sites-enabled/
