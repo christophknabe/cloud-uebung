@@ -1,4 +1,4 @@
-2018-02-22 Christoph Knabe
+2018-05-09 Christoph Knabe
 
 # Nginx als Reverse Proxy für eine WebApp
 
