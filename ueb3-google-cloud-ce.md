@@ -35,7 +35,9 @@ wobei diese eigentlich an Lehrkräfte gerichtet sind.
   **Name**: nachname-unterscheidungsmerkmal
   **Zone**: europe-west3-b (Frankfurt)
   **Maschinentyp**: Klein: g1-small (1 vCPU, 1,7 GB Speicherplatz)
+  **Container**: leer lassen
   **Bootlaufwerk**: Neuer nichtflüchtiger Standardspeicher mit 10 GB, Image: Debian GNU/Linux 9 (stretch)
+  **Identity and API access** &rarr; **Service account**: (*No service account* wurde in einem Fall nötig, wenn nginx den Port 80 nicht belegen konnte, weil er von Google-Diensten belegt war.)
   **Firewalls**: HTTP-Traffic zulassen, als auch: HTTPS-Traffic zulassen
   Die Instanz wird erstellt und sofort gestartet und kostet, während sie läuft, stündlich 2,57 Cent. Daher bitte nach dem Testen jeden Tag wieder herunterfahren!
 * Die VM-Instanz hat eine dauerhafte (Google-)Interne IP-Adresse und eine nach jedem Booten neu vergebene Externe IP-Adresse. Testen Sie, ob die VM erreichbar ist, in einem Terminalfenster mit `ping 35.198.88.248` (externe IP-Adresse: anpassen gemäß der Anzeige in der Liste Ihrer VM-Instanzen).
@@ -49,7 +51,7 @@ Die Ausrüstung der Maschine mit der nötigen Software zum Betreiben einer Java-
 * Probieren Sie die Befehle `pwd` und `ls -la`.
 * Sie können die Terminalverbindung durch den Befehl `exit` oder die Tastenkombination &lt;Strg/D> beenden.
 * Kopieren bzw. Einfügen von Textstücken erfolgen wie üblich mit &lt;Strg/C> bzw. &lt;Strg/V>. Wenn nichts markiert ist, bewirkt &lt;Strg/C> aber ein Beenden des aktuell im Terminalfenster laufenden Programms.
-* Führen Sie im ssh-Fenster die Schritte des Kapitels *Werkzeuge Java, Maven, Git ... installieren* aus dem Dokument `vagrant-installation.md` durch. Testen Sie den Erfolg mit
+* Führen Sie im ssh-Fenster die Schritte des Unterkapitels *Werkzeuge Java, Maven, Git ... installieren* aus der Übung 2, Kapitel *Vagrant-installation* durch. Testen Sie den Erfolg mit
   `java -version`
   `javac -version`
   `mvn -version`
