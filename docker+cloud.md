@@ -37,7 +37,8 @@ besser
 
 ## Markieren und publizieren Sie Ihr Image
 
-Die volle Bezeichnung eines Images auf Docker-Hub hat den Aufbau 
+Die volle Bezeichnung eines Images auf Docker-Hub hat den folgenden Aufbau (ohne Zwischenräume): 
+
 *username*`/`*repository*`:`*tag*
 
 Der **Tag** ist optional. Er dient der Unterscheidung verschiedener Versionen. Wenn Sie keinen Tag angeben, wird jeweils `latest` vergeben.
