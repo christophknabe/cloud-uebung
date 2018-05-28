@@ -46,7 +46,7 @@ Sie **markieren** Ihr lokales Image dockerhub-tauglich mittels
 `docker tag ` *image dockerUsername*`/`*repository*`:`*tag*
 
 In meinem Fall z.B. mittels
-`docker tag petclinic knabe2c/petclinic:ueb5`
+`docker tag petclinic knabe/petclinic:ueb5`
 
 Dies wirkt sich zunächst nur lokal aus. Sie können das Ergebnis betrachten mittels Kommando
 `docker images`
@@ -54,7 +54,7 @@ Ausgabe z.B.:
 
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-knabe2c/petclinic   ueb5                ea9dbe87e3ea        2 months ago        548MB
+knabe/petclinic     ueb5                ea9dbe87e3ea        2 months ago        548MB
 petclinic           latest              ea9dbe87e3ea        2 months ago        548MB
 openjdk             8-jdk-slim          52de5d98a41d        3 months ago        244MB
 friendlyhello       latest              3b52ff254ee5        4 months ago        148MB
@@ -65,7 +65,7 @@ Man kann sehen, dass das ältere lokale Image `petclinic` dieselbe IMAGE ID wie 
 Jetzt **laden** Sie Ihr Image **hoch** mittels `docker push` *username*`/`*repository*`:`*tag*
 
 In meinem Fall also mit
-`docker push knabe2c/petclinic:ueb5`
+`docker push knabe/petclinic:ueb5`
 
 Das dauert einige Zeit. Es werden die Transfers der Layers des Images angestoßen, von denen mehrere parallel erfolgen. Man sieht, dass das Image **library/openjdk** nicht hochgeladen werden muss, da es von Docker bezogen wurde.
 
@@ -73,8 +73,42 @@ Wenn der Upload fertig ist, kann man nach Anmeldung unter https://hub.docker.com
 
 ## Holen und Starten eines Images vom entfernten Repository
 
-Ab jetzt können Sie Ihr Image auf jeder Maschine mit folgendem Kommando holen und ausführen:
+> **Achtung**: Auf Windows oder MacOS müssen Sie zuerst einmalig `docker-machine start` aufrufen und nach Abschluss Ihrer Arbeit sollten Sie die Docker-VM `default` wieder herunterfahren mittels `docker-machine stop`.
 
-`docker run -p 8080:8080 username/petclinic:ueb5`
+Ab jetzt können Sie Ihr Image auf jeder Maschine, auf der Docker installiert ist, mit folgendem Kommando holen und ausführen:
+
+`docker run -p 8080:8080 ` *username*`/petclinic:ueb5`
 
 Wenn Ihnen kein zweiter Rechner zur Verfügung steht, probieren Sie es auf dem Laborserver `host01.beuth-hochschule.de` (Zugang wie in Übung 1), auf dem wir Docker installiert haben.
+
+Es erscheinen Meldungen wie
+
+```
+Unable to find image 'username/petclinic:ueb5' locally
+ueb5: Pulling from username/petclinic
+8176e34d5d92: Pulling fs layer
+...
+e991b55a8065: Waiting
+...
+99f28966f0b2: Verifying Checksum
+99f28966f0b2: Download complete
+...
+8176e34d5d92: Download complete
+8176e34d5d92: Pull complete
+...
+```
+
+Auch dieser Vorgang dauert abhängig von Ihrer Internet-Verbindung einige Zeit.
+
+Jetzt sollten Sie wieder zu http://localhost:8080 browsen können.
+
+> **Windows**: Auf Windows oder MacOS können Sie folgende Kommandos benutzen:
+>
+> * `docker-machine ip` zum Herausfinden der nichtroutbaren IP-Adresse der VM, bei mir 192.168.99.100
+
+Mit `docker container ls` sehen Sie Ihren laufenden Container inklusive des Port Mappings.
+
+Wenn Sie mit Browsen zu http://localhost:8080 (bzw. auf Windows zu http://192.168.99.100:8080) keinen Erfolg haben, sollten Sie zunächst mit ` curl 192.168.99.100:8080` probieren. Wenn das funktioniert, aber mit Ihrem Browser nicht, können Sie auch einen anderen Browser ausprobieren.
+
+xxx
+
