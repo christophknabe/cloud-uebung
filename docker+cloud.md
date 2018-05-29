@@ -1,3 +1,5 @@
+**ACHTUNG**:  Diese Anleitung ist noch nicht systematisch durchgetestet worden. Nach vielen Fehlschlägen ist sie mir so einmal gelungen, aber ich möchte sie am 30.05.18 noch einmal insgesamt durcharbeiten, um sicher zu gehen, dass alles wie beschrieben funktioniert.
+
 # Docker in der Cloud
 
 Wir haben gesehen, dass mit einem einzigen `Dockerfile` ein komplettes System so beschrieben werden kann, dass daraus ein ausführbares Image erzeugt werden kann.
@@ -33,7 +35,7 @@ besser
 
 Gemäß den [Docker Best Practices](https://docs.docker.com/v17.09/engine/userguide/eng-image/dockerfile_best-practices/#run) sollte man `apt-get upgrade` nicht durchführen. 
 
-Ebenso benötigen wir für den Betrieb bei Google unsere Applikation unter Port 80, wie im Dokument [Nginx als Reverse Proxy für eine WebApp](nginx-proxy.md) beschrieben. Daher zusätzlich zur Übung 4 (Docker lokal) das Paket `nginx-light` installieren und so konfigurieren, dass Nginx Port-80-Anfragen an Port 8080 weiterreicht. Dies muss alles automatisch im Dockerfile geschehen.
+Wegen Komplikationen mit dem Ablauf mehrerer Prozesse in einem Docker-Container verzichten wir auf Nginx mit Port 80.
 
 Am Ende muss das Kommando
 
@@ -41,11 +43,11 @@ Am Ende muss das Kommando
 docker build -t petclinic .
 ```
 
-das Image so bauen, dass bei seiner Audführung der Container auf Port 80 lauscht (und dies an die Spring Boot App unter Port 8080 weitergibt). Also muss bei
+das Image so bauen, dass bei seiner Ausführung der Container auf Port 8080 lauscht (und dies an die Spring Boot App unter Port 8080 weitergibt). Also muss bei
 
-`docker run -p 80:80 petclinic`
+`docker run -p 8080:8080 petclinic`
 
-die Applikation über http://localhost ansprechbar sein.
+die Applikation über http://localhost:8080 ansprechbar sein.
 
 ## Anmelden bei einem Docker-Registry-Provider
 
@@ -69,7 +71,7 @@ Sie **markieren** Ihr lokales Image dockerhub-tauglich mittels
 `docker tag ` *image dockerUsername*`/`*repository*`:`*tag*
 
 In meinem Fall z.B. mittels
-`docker tag petclinic knabe/petclinic:ueb5`
+`docker tag petclinic knabe/petclinic`
 
 Dies wirkt sich zunächst nur lokal aus. Sie können das Ergebnis betrachten mittels Kommando
 `docker images`
@@ -88,7 +90,7 @@ Man kann sehen, dass das ältere lokale Image `petclinic` dieselbe IMAGE ID wie 
 Jetzt **laden** Sie Ihr Image **hoch** mittels `docker push` *username*`/`*repository*`:`*tag*
 
 In meinem Fall also mit
-`docker push knabe/petclinic:ueb5`
+`docker push knabe/petclinic`
 
 Das dauert einige Zeit. Es werden die Transfers der Layers des Images angestoßen, von denen mehrere parallel erfolgen. Man sieht, dass das Image **library/openjdk** nicht hochgeladen werden muss, da es von Docker bezogen wurde.
 
@@ -100,14 +102,14 @@ Wenn der Upload fertig ist, kann man nach Anmeldung unter https://hub.docker.com
 
 Ab jetzt können Sie Ihr Image auf jeder Maschine, auf der Docker installiert ist, mit folgendem Kommando holen und ausführen:
 
-`docker run -p 8080:8080 ` *username*`/petclinic:ueb5`
+`docker run -p 8080:8080 ` *username*`/petclinic`
 
 Wenn Ihnen kein zweiter Rechner zur Verfügung steht, probieren Sie es auf dem Laborserver `host01.beuth-hochschule.de` (Zugang wie in Übung 1), auf dem wir Docker installiert haben.
 
 Es erscheinen Meldungen wie
 
 ```
-Unable to find image 'username/petclinic:ueb5' locally
+Unable to find image 'username/petclinic:latest' locally
 ueb5: Pulling from username/petclinic
 8176e34d5d92: Pulling fs layer
 ...
@@ -139,8 +141,16 @@ Wir wollen jetzt das gebaute Spring-petclinic-Docker-Image auf der Google Comput
 
 Für den einfachsten Fall führen Sie bitte folgende Schritte durch:
 
-* Starten Sie Ihre GCE-VM, die Sie in Übung 3 auf https://console.cloud.google.com angelegt haben.
+* Erzeugen Sie eine neue GCE-VM analog zu in Übung 3 auf https://console.cloud.google.com mit folgenden Unterschieden:
+  **Container**: Deploy a container image to this VM instance
+  **Container image**: ihrDockerUsername/petclinic
 * Öffnen Sie eine ssh-Verbindung dahin.
-* Führen Sie die Schritte von https://github.com/ChristophKnabe/cloud-uebung/blob/master/ueb4-docker-lokal.md#installation-auf-linux-mint-172-ubuntu-1404-lts durch, die für Debian-Linuxe geeignet ist.
-* 
+* Starten Sie diese VM.
+* Nach erfolgreichem Start klicken Sie auf die angezeigte **External IP**.
+* Im Browser öffnet sich ein Fenster mit einer Fehlermeldung. Ersetzen Sie in der Adresse **https:** durch **http:** und hängen Sie an die Adresse **:8080** an.
+* Es sollte die Petclinic-Oberfläche erscheinen.
+
+
+
+
 
