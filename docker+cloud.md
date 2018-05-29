@@ -14,16 +14,38 @@ Wir müssen unser Docker-Image in eine von der Cloud erreichbare Registry bringe
 
 Im Unterschied zu **git** wird in einem Repository kein Quellcode gespeichert, sondern das binäre Ergebnis der einzelnen Kommandos im `Dockerfile`.  
 
-Jedes Kommando im Dockerfile erzeugt einen neuen **Layer**, der im lokalen Repository vorgehalten wird. Diese Layers können wir durch das Kommando `docker history petclinic` auflisten. Zwecks Sparsamkeit sollte man daher die mehreren Applikationen gemeinsamen Kommandos möglichst an den Anfang ihrer Dockerfiles platzieren. Ebenso ist es sinnvoll, Kommandos, die immer gemeinsam benötigt werden, in ein Docker-Kommando zusammenzufassen. Also statt
+Jedes Kommando im Dockerfile erzeugt einen neuen **Layer**, der im lokalen Repository vorgehalten wird. Diese Layers können wir durch das Kommando `docker history petclinic` auflisten. 
+
+## Unterschiede zur Übung 4 (Docker lokal)
+
+Der Dockerfile sollte bei der Entwicklung alleine oder mit möglichst wenig Dateien in einem Verzeichnis stehen, da alles im Verzeichnis in den Docker-Container aufgenommen wird.
+
+Zwecks Sparsamkeit mit Layern sollte man die mehreren Applikationen gemeinsamen Kommandos möglichst an den Anfang ihrer Dockerfiles platzieren. Ebenso ist es sinnvoll, Kommandos, die immer gemeinsam benötigt werden, in ein Docker-Kommando zusammenzufassen. Also z.B. statt
 
 ```
 RUN apt-get update
-RUN apt-get --yes upgrade
+RUN apt-get --yes install maven git
 ```
 
 besser 
 
-`RUN apt-get update && apt-get --yes upgrade`
+`RUN apt-get update && apt-get --yes install maven git`
+
+Gemäß den [Docker Best Practices](https://docs.docker.com/v17.09/engine/userguide/eng-image/dockerfile_best-practices/#run) sollte man `apt-get upgrade` nicht durchführen. 
+
+Ebenso benötigen wir für den Betrieb bei Google unsere Applikation unter Port 80, wie im Dokument [Nginx als Reverse Proxy für eine WebApp](nginx-proxy.md) beschrieben. Daher zusätzlich zur Übung 4 (Docker lokal) das Paket `nginx-light` installieren und so konfigurieren, dass Nginx Port-80-Anfragen an Port 8080 weiterreicht. Dies muss alles automatisch im Dockerfile geschehen.
+
+Am Ende muss das Kommando
+
+```
+docker build -t petclinic .
+```
+
+das Image so bauen, dass bei seiner Audführung der Container auf Port 80 lauscht (und dies an die Spring Boot App unter Port 8080 weitergibt). Also muss bei
+
+`docker run -p 80:80 petclinic`
+
+die Applikation über http://localhost ansprechbar sein.
 
 ## Anmelden bei einem Docker-Registry-Provider
 
@@ -111,5 +133,14 @@ Mit `docker container ls` sehen Sie Ihren laufenden Container inklusive des Port
 
 Wenn Sie mit Browsen zu http://localhost:8080 (bzw. auf Windows zu http://192.168.99.100:8080) keinen Erfolg haben, sollten Sie zunächst mit ` curl 192.168.99.100:8080` probieren. Wenn das funktioniert, aber mit Ihrem Browser nicht, können Sie auch einen anderen Browser ausprobieren.
 
-xxx
+## Docker-Image in der Cloud ausführen
+
+Wir wollen jetzt das gebaute Spring-petclinic-Docker-Image auf der Google Compute Engine ausführen. Es gibt mehrere Möglichkeiten, Docker-Images oder andere Container auf GCE zu betreiben. Siehe https://cloud.google.com/compute/docs/containers/
+
+Für den einfachsten Fall führen Sie bitte folgende Schritte durch:
+
+* Starten Sie Ihre GCE-VM, die Sie in Übung 3 auf https://console.cloud.google.com angelegt haben.
+* Öffnen Sie eine ssh-Verbindung dahin.
+* Führen Sie die Schritte von https://github.com/ChristophKnabe/cloud-uebung/blob/master/ueb4-docker-lokal.md#installation-auf-linux-mint-172-ubuntu-1404-lts durch, die für Debian-Linuxe geeignet ist.
+* 
 

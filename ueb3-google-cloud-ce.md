@@ -33,7 +33,7 @@ wobei diese eigentlich an Lehrkräfte gerichtet sind.
 * Im Compute-Engine-Submenü klicken Sie auf *VM-Instanzen* sowie dann in der erscheinenden zweitobersten Menüzeile auf "+ *Instanz erstellen*".
 * Im Dialog VM-Instanz erstellen wählen Sie abweichend von der Vorbelegung
   **Name**: nachname-unterscheidungsmerkmal
-  **Zone**: europe-west3-b (Frankfurt)
+  **Region**: europe-west3 (Frankfurt)
   **Maschinentyp**: Klein: g1-small (1 vCPU, 1,7 GB Speicherplatz)
   **Container**: leer lassen
   **Bootlaufwerk**: Neuer nichtflüchtiger Standardspeicher mit 10 GB, Image: Debian GNU/Linux 9 (stretch)
