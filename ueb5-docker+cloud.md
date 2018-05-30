@@ -1,4 +1,4 @@
-**ACHTUNG**:  Diese Anleitung ist noch nicht systematisch durchgetestet worden. Nach vielen Fehlschlägen ist sie mir so einmal gelungen, aber ich möchte sie am 30.05.18 noch einmal insgesamt durcharbeiten, um sicher zu gehen, dass alles wie beschrieben funktioniert.
+2018-05-30 Christoph Knabe
 
 # Docker in der Cloud
 
@@ -33,7 +33,7 @@ besser
 
 `RUN apt-get update && apt-get --yes install maven git`
 
-Gemäß den [Docker Best Practices](https://docs.docker.com/v17.09/engine/userguide/eng-image/dockerfile_best-practices/#run) sollte man `apt-get upgrade` nicht durchführen. 
+Gemäß den [Docker Best Practices](https://docs.docker.com/v17.09/engine/userguide/eng-image/dockerfile_best-practices/#run) sollte man wegen Cache-Problemen `apt-get upgrade` nicht durchführen, sondern bei Bedarf aktuellerer Versionen auf einem aktuelleren Basis-Image aufsetzen.
 
 Wegen Komplikationen mit dem Ablauf mehrerer Prozesse in einem Docker-Container verzichten wir auf Nginx mit Port 80.
 
@@ -43,11 +43,11 @@ Am Ende muss das Kommando
 docker build -t petclinic .
 ```
 
-das Image so bauen, dass bei seiner Ausführung der Container auf Port 8080 lauscht (und dies an die Spring Boot App unter Port 8080 weitergibt). Also muss bei
+das Image so bauen, dass bei seiner Ausführung der Container auf Port 8080 lauscht (und dies an die Spring Boot App unter Port 8080 weitergibt). Also muss bei einer lokalen Ausführung mit
 
 `docker run -p 8080:8080 petclinic`
 
-die Applikation über http://localhost:8080 ansprechbar sein.
+die Applikation über http://localhost:8080 bzw. auf Windows entsprechend über die IP-Adresse der Docker-Machine ansprechbar sein.
 
 ## Anmelden bei einem Docker-Registry-Provider
 
@@ -79,8 +79,8 @@ Ausgabe z.B.:
 
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-knabe/petclinic     ueb5                ea9dbe87e3ea        2 months ago        548MB
-petclinic           latest              ea9dbe87e3ea        2 months ago        548MB
+knabe/petclinic     latest              ea9dbe87e3ea        4 minutes ago       559MB
+petclinic           latest              ea9dbe87e3ea        5 minutes ago       559MB
 openjdk             8-jdk-slim          52de5d98a41d        3 months ago        244MB
 friendlyhello       latest              3b52ff254ee5        4 months ago        148MB
 ```
@@ -92,7 +92,7 @@ Jetzt **laden** Sie Ihr Image **hoch** mittels `docker push` *username*`/`*repos
 In meinem Fall also mit
 `docker push knabe/petclinic`
 
-Das dauert einige Zeit. Es werden die Transfers der Layers des Images angestoßen, von denen mehrere parallel erfolgen. Man sieht, dass das Image **library/openjdk** nicht hochgeladen werden muss, da es von Docker bezogen wurde.
+Das dauert einige Zeit. Es geht in der Hochschule bedeutend schneller als bei mir zu Hause. Es werden die Transfers der Layers des Images angestoßen, von denen mehrere parallel erfolgen. Man sieht, dass das Image **library/openjdk** nicht hochgeladen werden muss, da es von Docker bezogen wurde.
 
 Wenn der Upload fertig ist, kann man nach Anmeldung unter https://hub.docker.com/ sein neu angelegtes, öffentliches Repository **petclinic** mit den darin enthaltenen Images sehen.
 
@@ -137,18 +137,40 @@ Wenn Sie mit Browsen zu http://localhost:8080 (bzw. auf Windows zu http://192.16
 
 ## Docker-Image in der Cloud ausführen
 
-Wir wollen jetzt das gebaute Spring-petclinic-Docker-Image auf der Google Compute Engine ausführen. Es gibt mehrere Möglichkeiten, Docker-Images oder andere Container auf GCE zu betreiben. Siehe https://cloud.google.com/compute/docs/containers/
+Wir wollen jetzt das gebaute Spring-Petclinic-Docker-Image auf der Google Compute Engine ausführen. Es gibt mehrere Möglichkeiten, Docker-Images oder andere Container auf GCE zu betreiben. Siehe https://cloud.google.com/compute/docs/containers/
 
 Für den einfachsten Fall führen Sie bitte folgende Schritte durch:
 
-* Erzeugen Sie eine neue GCE-VM analog zu in Übung 3 auf https://console.cloud.google.com mit folgenden Unterschieden:
-  **Container**: Deploy a container image to this VM instance
-  **Container image**: ihrDockerUsername/petclinic
-* Öffnen Sie eine ssh-Verbindung dahin.
-* Starten Sie diese VM.
+* Melden Sie sich auf https://console.cloud.google.com/compute/instances an und wählen Sie Ihr Projekt aus.
+* Erzeugen Sie eine neue GCE-VM analog zu Übung 3 mittels **+ CREATE INSTANCE** mit folgenden Eigenschaften:
+  Name: frei wählbar
+  Region: europe-west3 (Frankfurt)
+  Machine type: small (1,7 GB memory)
+  **Container: Deploy a container image to this VM instance**
+  **Container image: *ihrDockerUsername*/petclinic**
+  Die fettgedruckten Teile unterscheiden sich von [Übung 3](ueb3-google-cloud-ce.md).
+  GCE wählt dann als Boot Image "Container-Optimized OS" aus (eine Linux-Variante mit vorinstalliertem Docker). 
+  Firewall: Allow HTTP traffice, Allow HTTPS traffic.
+* Diese VM wird automatisch gestartet (grüner Haken).
 * Nach erfolgreichem Start klicken Sie auf die angezeigte **External IP**.
 * Im Browser öffnet sich ein Fenster mit einer Fehlermeldung. Ersetzen Sie in der Adresse **https:** durch **http:** und hängen Sie an die Adresse **:8080** an.
 * Es sollte die Petclinic-Oberfläche erscheinen.
+* Öffnen Sie in der GCE-VM-Liste eine ssh-Verbindung zu Ihrer VM. Sie erhalten eine Shell mit dem Hinweis "You have logged in to the guest OS. To access your containers use 'docker attach' command". Sie sind also auf dem Linux, auf welchem Ihr Docker-Container läuft.
+* Verifizieren Sie dieses mit dem Kommando `docker container ls`. Sie müssten Ihren Petclinic-Container sehen.
+* Verbinden Sie die Ausgabe dieses Containers mit Ihrem Shell-Fenster durch `docker attach id` mit der richtigen ID des Containers.
+* Jetzt klicken Sie im Browser in der Petclinic-Oberfläche auf **Error** zum Werfen einer Ausnahme. Sie müssten deren Stack Trace in Ihrem ssh-Fenster sehen.
+* Sie können den Container wieder mit &lt;Strg/C&gt; abbrechen und die Shell mit Kommando `exit` beenden.
+* Bitte stoppen Sie auch die VM-Instanz, um keine dauerhaften Kosten zu erzeugen.
+
+Damit haben Sie erfolgreich ein Docker-Image erstellt und in der Cloud in Betrieb genommen.
+
+## Einschränkung
+
+Diese Lösung bietet die Petclinic über Port 8080 an. Wünschenswert wäre aber der Standardport 80. Dafür müsste man wie in [Übung 3](ueb3-google-cloud-ce.md) zusätzlich Nginx in dem Docker-Container oder in einem zweiten Docker-Container laufen lassen.
+
+Beide Ansätze würden einen erhöhten Konfigurationsaufwand erfordern, den wir an dieser Stelle jedoch nicht treiben möchten.
+
+
 
 
 
