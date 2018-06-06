@@ -1,4 +1,4 @@
-2018-05-30 Christoph Knabe
+2018-06-06 Christoph Knabe
 
 # Docker in der Cloud
 
@@ -142,6 +142,16 @@ Wir wollen jetzt das gebaute Spring-Petclinic-Docker-Image auf der Google Comput
 Für den einfachsten Fall führen Sie bitte folgende Schritte durch:
 
 * Melden Sie sich auf https://console.cloud.google.com/compute/instances an und wählen Sie Ihr Projekt aus.
+* **Port 8080 in der Firewall erlauben**:
+  - In der Cloud console links oben Navigation Menu &rarr; NETWORKING: VPC network &rarr; Firewall rules &rarr; Create firewall rule:
+  - **Name**: http-8080
+    **Beschreibung**: Tomcat bietet normalerweise seine Apps über 8080 an.
+    **Direction of traffic**: Ingress
+    **Action on match**: Allow
+    **Targets**: All instances in the network
+    **Sourcefilters: IP ranges:** 0.0.0.0/0
+    **Protocols and Ports**: tcp:8080
+    **Enforcement**: Enabled
 * Erzeugen Sie eine neue GCE-VM analog zu Übung 3 mittels **+ CREATE INSTANCE** mit folgenden Eigenschaften:
   Name: frei wählbar
   Region: europe-west3 (Frankfurt)
