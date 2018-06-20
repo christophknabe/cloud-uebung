@@ -12,7 +12,7 @@ Im Zuge der immer höher werdenden Anforderungen an Skalierbarkeit für das Web 
 
 Informieren Sie sich z.B., für welche NoSQL-Datenbanksysteme Google Cloud gemanagte Dienste anbietet. Alternativ können Sie ein beliebiges NoSQL-Datenbanksystem mittels Docker in der Google Cloud betreiben. Sinnvoll ist es natürlich eines auszuwählen, das Sie auch auf Ihrem Entwicklungsrechner ausführen können.
 
-Damit jeder Studierende sein individuelles Projekt erbringt, müssen Sie Ihre Entscheidung für ein NoSQL-Datenbanksystem bei mir anmelden. Wenn zwei sich für dassselbe Datenbanksystem entscheiden, hat die frühere Anmeldung Priorität. Ich werde die akzeptierten und abgelehnten Anmeldungen im Moodle-Kurs veröffentlichen.
+Damit jeder Studierende sein individuelles Projekt erbringt, müssen Sie Ihre Entscheidung für ein NoSQL-Datenbanksystem bei mir anmelden. Wenn zwei sich für dasselbe Datenbanksystem entscheiden, hat die frühere Anmeldung Priorität. Ich werde die akzeptierten und abgelehnten Anmeldungen im Moodle-Kurs veröffentlichen.
 
 ## 2. Petclinic auf Ihr Datenbanksystem umstellen
 
