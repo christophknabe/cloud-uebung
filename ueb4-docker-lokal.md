@@ -12,7 +12,12 @@ Dokumentation: https://docs.docker.com
 
 # a) Docker-Installation und Test
 
-### Installation auf Linux Mint 17.2 (Ubuntu 14.04 LTS)
+### Einfache Installation ab Ubuntu 16.04 LTS mittels snap
+Gemäß Anleitung https://snapcraft.io/install/docker/ubuntu kann Docker einfach aus dem Snap Store installiert werden
+auf Ubuntu ab 16.04 sowie weiteren Linux-Systemen, sofern sie das Paket `snapd` installiert haben.
+Einfach `sudo snap install docker` ausführen &rArr; *docker 19.03.13 aus Canonical✓ installiert*
+
+### Kompliziertere Installation auf Linux Mint 17.2 (Ubuntu 14.04 LTS)
 Dies folgt der Anleitung https://docs.docker.com/install/linux/docker-ce/ubuntu/ für die Docker Community Edition.
 
    - Frühere Versionen deinstallieren: `sudo apt-get remove docker docker-ce docker-engine docker.io`
