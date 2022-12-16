@@ -7,7 +7,7 @@ Christoph Knabe, 2018-04-23
 * **git** ist ein Versionierungssystem. Lesen Sie bei Bedarf die Folien. Installieren Sie **git** und **git-gui** auf Ihrem Laptop. Siehe https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
   Am einfachsten ist es, dies mit dem Paketmanager des benutzten Betriebssystems zu installieren, auf Debian-Linux z. B. `sudo apt-get install git git-gui `. Notieren Sie die installierte Version!
 * **Java** ist eine Programmiersprache mit Laufzeitsystem. Installieren Sie den Java 8 SE JDK von http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-  Auf Debian ist es hier vorteilhaft, dies vom PPA WebUpd8 zu installieren, da dann es in den Debian-Aktualisierungsmechanismus enbezogen wird. Siehe http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html
+  Auf Debian ist es hier vorteilhaft, dies vom PPA WebUpd8 zu installieren, da dann es in den Debian-Aktualisierungsmechanismus einbezogen wird. Siehe http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html
   Sie können stattdessen gerne auch den OpenJDK 8 nehmen, da in der Cloud ohnehin der OpenJDK üblich ist. Dann ist der Umweg über WebUpd8 unnötig.
   Notieren Sie die installierte Version!
 * **Maven** ist ein Build-Werkzeug. Lesen Sie bei Bedarf die Folien. Installieren Sie Maven auf Ihrem Laptop. Siehe https://maven.apache.org/install.html
